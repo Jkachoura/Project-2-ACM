@@ -44,29 +44,31 @@ void setup() {
 
 void loop() {
   //Putting the value what IR sensor gives into the state variable of the ir sensors
-  irLeftState = digitalRead(irLeft);
-  irRightState = digitalRead(irRight);
+  irLeftState = !digitalRead(irLeft);
+  irRightState = !digitalRead(irRight);
   
   //If statements for detection black line
-  //LINE FOUND
-  if(irLeftState == 0 && irRightState == 0){
+  //LINE FOUND ON BOTH SENSORS
+  if(irLeftState == 1 && irRightState == 1){
+    reverse();
+    delay(1000);
     turnRight();
   }
   //LINE FOUND ON THE LEFT SENSOR
-  else if(irLeftState == 0 && irRightState == 1){
+  else if(irLeftState == 1 && irRightState == 0){
     turnRight();
   }
   //LINE FOUND ON THE RIGHT SENSOR
-  else if(irLeftState == 1 && irRightState == 0){
+  else if(irLeftState == 0 && irRightState == 1){
     turnLeft();
   }
   //NO LINES FOUND
   else{
-    forward();
+    drive();
   }
 }
 //Function to drive forward
-void forward(){
+void drive(){
   digitalWrite(fL1, HIGH);
   digitalWrite(fL2, LOW);
   digitalWrite(fR1, HIGH);
@@ -77,7 +79,7 @@ void forward(){
   digitalWrite(bR2, LOW);
 }
 //Function to drive backwards
-void backward(){
+void reverse(){
   digitalWrite(fL1, LOW);
   digitalWrite(fL2, HIGH);
   digitalWrite(fR1, LOW);
@@ -90,11 +92,11 @@ void backward(){
 //Function to turn to the left
 void turnLeft(){
   digitalWrite(fL1, LOW);
-  digitalWrite(fL2, LOW);
+  digitalWrite(fL2, HIGH);
   digitalWrite(fR1, HIGH);
   digitalWrite(fR2, LOW);
   digitalWrite(bL1, LOW);
-  digitalWrite(bL2, LOW);
+  digitalWrite(bL2, HIGH);
   digitalWrite(bR1, HIGH);
   digitalWrite(bR2, LOW);
 }
@@ -103,14 +105,14 @@ void turnRight(){
   digitalWrite(fL1, HIGH);
   digitalWrite(fL2, LOW);
   digitalWrite(fR1, LOW);
-  digitalWrite(fR2, LOW);
+  digitalWrite(fR2, HIGH);
   digitalWrite(bL1, HIGH);
   digitalWrite(bL2, LOW);
   digitalWrite(bR1, LOW);
-  digitalWrite(bR2, LOW);
+  digitalWrite(bR2, HIGH);
 }
 //Function to stop the car
-void stopping(){
+void park(){
   digitalWrite(fL1, LOW);
   digitalWrite(fL2, LOW);
   digitalWrite(fR1, LOW);
