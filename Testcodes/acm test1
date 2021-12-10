@@ -28,18 +28,9 @@ void setup() {
   pinMode(bL2, OUTPUT);
   pinMode(bR1, OUTPUT);
   pinMode(bR2, OUTPUT);
-  // Set the IR sensors to an input
+  //Set the IR sensors to an input
   pinMode(irLeft, INPUT);
   pinMode(irRight, INPUT);
-  // Turn off motors - Initial state
-  digitalWrite(fL1, LOW);
-  digitalWrite(fL2, LOW);
-  digitalWrite(fR1, LOW);
-  digitalWrite(fR2, LOW);
-  digitalWrite(bL1, LOW);
-  digitalWrite(bL2, LOW);
-  digitalWrite(bR1, LOW);
-  digitalWrite(bR2, LOW);
 }
 
 void loop() {
@@ -50,75 +41,75 @@ void loop() {
   //If statements for detection black line
   //LINE FOUND ON BOTH SENSORS
   if(irLeftState == 1 && irRightState == 1){
-    reverse();
+    drive('reverse');
     delay(1000);
-    turnRight();
+    drive('right');
   }
   //LINE FOUND ON THE LEFT SENSOR
   else if(irLeftState == 1 && irRightState == 0){
-    turnRight();
+    drive('right');
   }
   //LINE FOUND ON THE RIGHT SENSOR
   else if(irLeftState == 0 && irRightState == 1){
-    turnLeft();
+    drive('left');
   }
   //NO LINES FOUND
   else{
-    drive();
+    drive('forward');
   }
 }
-//Function to drive forward
-void drive(){
-  digitalWrite(fL1, HIGH);
-  digitalWrite(fL2, LOW);
-  digitalWrite(fR1, HIGH);
-  digitalWrite(fR2, LOW);
-  digitalWrite(bL1, HIGH);
-  digitalWrite(bL2, LOW);
-  digitalWrite(bR1, HIGH);
-  digitalWrite(bR2, LOW);
-}
-//Function to drive backwards
-void reverse(){
-  digitalWrite(fL1, LOW);
-  digitalWrite(fL2, HIGH);
-  digitalWrite(fR1, LOW);
-  digitalWrite(fR2, HIGH);
-  digitalWrite(bL1, LOW);
-  digitalWrite(bL2, HIGH);
-  digitalWrite(bR1, LOW);
-  digitalWrite(bR2, HIGH);
-}
-//Function to turn to the left
-void turnLeft(){
-  digitalWrite(fL1, LOW);
-  digitalWrite(fL2, HIGH);
-  digitalWrite(fR1, HIGH);
-  digitalWrite(fR2, LOW);
-  digitalWrite(bL1, LOW);
-  digitalWrite(bL2, HIGH);
-  digitalWrite(bR1, HIGH);
-  digitalWrite(bR2, LOW);
-}
-//Function to turn to the right
-void turnRight(){
-  digitalWrite(fL1, HIGH);
-  digitalWrite(fL2, LOW);
-  digitalWrite(fR1, LOW);
-  digitalWrite(fR2, HIGH);
-  digitalWrite(bL1, HIGH);
-  digitalWrite(bL2, LOW);
-  digitalWrite(bR1, LOW);
-  digitalWrite(bR2, HIGH);
-}
-//Function to stop the car
-void park(){
-  digitalWrite(fL1, LOW);
-  digitalWrite(fL2, LOW);
-  digitalWrite(fR1, LOW);
-  digitalWrite(fR2, LOW);
-  digitalWrite(bL1, LOW);
-  digitalWrite(bL2, LOW);
-  digitalWrite(bR1, LOW);
-  digitalWrite(bR2, LOW);
+//Function to drive the motors to given direction
+void drive(char mode){
+  switch (mode){
+    case 'forward':
+      digitalWrite(fL2, LOW);
+      digitalWrite(fR1, HIGH);
+      digitalWrite(fR2, LOW);
+      digitalWrite(bL1, HIGH);
+      digitalWrite(bL2, LOW);
+      digitalWrite(bR1, HIGH);
+      digitalWrite(bR2, LOW);
+      break;
+    case 'reverse':
+      digitalWrite(fL1, LOW);
+      digitalWrite(fL2, HIGH);
+      digitalWrite(fR1, LOW);
+      digitalWrite(fL1, HIGH);
+      digitalWrite(fR2, HIGH);
+      digitalWrite(bL1, LOW);
+      digitalWrite(bL2, HIGH);
+      digitalWrite(bR1, LOW);
+      digitalWrite(bR2, HIGH);
+      break;
+    case 'left':
+      digitalWrite(fL1, LOW);
+      digitalWrite(fL2, HIGH);
+      digitalWrite(fR1, HIGH);
+      digitalWrite(fR2, LOW);
+      digitalWrite(bL1, LOW);
+      digitalWrite(bL2, HIGH);
+      digitalWrite(bR1, HIGH);
+      digitalWrite(bR2, LOW);
+      break;
+    case 'right':
+      digitalWrite(fL1, HIGH);
+      digitalWrite(fL2, LOW);
+      digitalWrite(fR1, LOW);
+      digitalWrite(fR2, HIGH);
+      digitalWrite(bL1, HIGH);
+      digitalWrite(bL2, LOW);
+      digitalWrite(bR1, LOW);
+      digitalWrite(bR2, HIGH);
+      break;
+    case 'park':
+      digitalWrite(fL1, LOW);
+      digitalWrite(fL2, LOW);
+      digitalWrite(fR1, LOW);
+      digitalWrite(fR2, LOW);
+      digitalWrite(bL1, LOW);
+      digitalWrite(bL2, LOW);
+      digitalWrite(bR1, LOW);
+      digitalWrite(bR2, LOW);
+      break;
+  }
 }
