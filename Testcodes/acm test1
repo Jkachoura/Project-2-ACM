@@ -67,7 +67,6 @@ void loop() {
   }
   
   checkUltrasoneSensors();
-  
 }
 //Function to drive the motors to given direction
 void drive(char mode){
@@ -142,7 +141,7 @@ int frontUltrasone(){
 }
 
 int bottomUltrasone(){
-  int acmHeight = ?;
+  int sensorHeight = ?;
   int distanceGround;
   
   // Clears the trigPin condition
