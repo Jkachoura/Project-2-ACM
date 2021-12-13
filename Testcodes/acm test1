@@ -13,10 +13,15 @@
 //Ir sensors
 #define irLeft 9
 #define irRight 10
+//Ultrasonic Sensor
+#define echoPin 11
+#define trigPin 12
 
 //States of IR sensor
 int irLeftState;
 int irRightState;
+int distance;   // variable for the distance measurement
+long duration;  // variable for the traveltime of sound waves
 
 void setup() {
   //Set all the motor control pins to outputs
@@ -31,6 +36,9 @@ void setup() {
   //Set the IR sensors to an input
   pinMode(irLeft, INPUT);
   pinMode(irRight, INPUT);
+  //Set the Ultrasonic Sensor pins as output or input
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
 }
 
 void loop() {
@@ -57,6 +65,9 @@ void loop() {
   else{
     drive('forward');
   }
+  
+  checkUltrasoneSensors();
+  
 }
 //Function to drive the motors to given direction
 void drive(char mode){
@@ -111,5 +122,56 @@ void drive(char mode){
       digitalWrite(bR1, LOW);
       digitalWrite(bR2, LOW);
       break;
+  }
+}
+
+int frontUltrasone(){
+  // Clears the trigPin condition
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
+  
+  return distance;
+}
+
+int bottomUltrasone(){
+  int acmHeight = ?;
+  int distanceGround;
+  
+  // Clears the trigPin condition
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
+  
+  distanceGround = acmHeight - distance;
+  
+  return distanceGround;
+}
+
+void checkUltrasoneSensors(){
+  if(frontUltrasone() <= 15){
+    drive('left');
+    delay(3000);
+    drive('forward');
+  }
+  else if(bottomUltrasone() > 5){
+  drive('park');
+  drive('reverse');
+  delay(3000);
+  driver('left');
   }
 }
