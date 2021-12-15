@@ -46,6 +46,7 @@ void loop() {
 void drive(char mode){
   switch (mode){
     case 'forward':
+      digitalWrite(fL1, HIGH);
       digitalWrite(fL2, LOW);
       digitalWrite(fR1, HIGH);
       digitalWrite(fR2, LOW);
