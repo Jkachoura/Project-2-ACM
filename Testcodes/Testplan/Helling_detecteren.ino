@@ -15,14 +15,11 @@ int distance;     // variable for the distance measurement
 long duration;    // variable for the traveltime of sound waves
 
 void setup() {
-  pinMode(fL1, OUTPUT);
-  pinMode(fL2, OUTPUT);
-  pinMode(fR1, OUTPUT);
-  pinMode(fR2, OUTPUT);
-  pinMode(bL1, OUTPUT);
-  pinMode(bL2, OUTPUT);
-  pinMode(bR1, OUTPUT);
-  pinMode(bR2, OUTPUT);
+  //Set all the motor control pins to outputs
+  pinMode(lM1, OUTPUT);
+  pinMode(lM2, OUTPUT);
+  pinMode(rM1, OUTPUT);
+  pinMode(rM2, OUTPUT);
   //Set the IR sensors to an input
   pinMode(irLeft, INPUT);
   pinMode(irRight, INPUT);
