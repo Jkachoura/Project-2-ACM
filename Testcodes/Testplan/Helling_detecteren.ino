@@ -1,15 +1,9 @@
-// Motor Front Left connections
-#define fL1 1
-#define fL2 2
-// Motor Front Right connections
-#define fR1 3
-#define fR2 4
-// Motor Back Left connections
-#define bL1 5
-#define bL2 6
-// Motor Back Right connections
-#define bR1 7
-#define bR2 8
+// Left Motor connections
+#define lM1 1
+#define lM2 2
+// Right Motor connections
+#define rM1 3
+#define rM2 4
 //Ir sensors
 #define irLeft 9
 #define irRight 10
@@ -46,55 +40,34 @@ void loop() {
 void drive(char mode){
   switch (mode){
     case 'forward':
-      digitalWrite(fL1, HIGH);
-      digitalWrite(fL2, LOW);
-      digitalWrite(fR1, HIGH);
-      digitalWrite(fR2, LOW);
-      digitalWrite(bL1, HIGH);
-      digitalWrite(bL2, LOW);
-      digitalWrite(bR1, HIGH);
-      digitalWrite(bR2, LOW);
+      digitalWrite(lM, HIGH);
+      digitalWrite(lM2, LOW);
+      digitalWrite(rM1, HIGH);
+      digitalWrite(rM2, LOW);
       break;
     case 'reverse':
-      digitalWrite(fL1, LOW);
-      digitalWrite(fL2, HIGH);
-      digitalWrite(fR1, LOW);
-      digitalWrite(fL1, HIGH);
-      digitalWrite(fR2, HIGH);
-      digitalWrite(bL1, LOW);
-      digitalWrite(bL2, HIGH);
-      digitalWrite(bR1, LOW);
-      digitalWrite(bR2, HIGH);
+      digitalWrite(lM, LOW);
+      digitalWrite(lM2, HIGH);
+      digitalWrite(rM1, LOW);
+      digitalWrite(rM2, HIGH);
       break;
     case 'left':
-      digitalWrite(fL1, LOW);
-      digitalWrite(fL2, HIGH);
-      digitalWrite(fR1, HIGH);
-      digitalWrite(fR2, LOW);
-      digitalWrite(bL1, LOW);
-      digitalWrite(bL2, HIGH);
-      digitalWrite(bR1, HIGH);
-      digitalWrite(bR2, LOW);
+      digitalWrite(lM, LOW);
+      digitalWrite(lM2, HIGH);
+      digitalWrite(rM1, HIGH);
+      digitalWrite(rM2, LOW);
       break;
     case 'right':
-      digitalWrite(fL1, HIGH);
-      digitalWrite(fL2, LOW);
-      digitalWrite(fR1, LOW);
-      digitalWrite(fR2, HIGH);
-      digitalWrite(bL1, HIGH);
-      digitalWrite(bL2, LOW);
-      digitalWrite(bR1, LOW);
-      digitalWrite(bR2, HIGH);
+      digitalWrite(lM, HIGH);
+      digitalWrite(lM2, LOW);
+      digitalWrite(rM1, LOW);
+      digitalWrite(rM2, HIGH);
       break;
     case 'park':
-      digitalWrite(fL1, LOW);
-      digitalWrite(fL2, LOW);
-      digitalWrite(fR1, LOW);
-      digitalWrite(fR2, LOW);
-      digitalWrite(bL1, LOW);
-      digitalWrite(bL2, LOW);
-      digitalWrite(bR1, LOW);
-      digitalWrite(bR2, LOW);
+      digitalWrite(lM, LOW);
+      digitalWrite(lM2, LOW);
+      digitalWrite(rM1, LOW);
+      digitalWrite(rM2, LOW);
       break;
   }
 }
