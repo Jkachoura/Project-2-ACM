@@ -70,31 +70,31 @@ void loop() {
 void drive(char mode){
   switch (mode){
     case 'forward':
-      digitalWrite(lM, HIGH);
+      digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
     case 'reverse':
-      digitalWrite(lM, LOW);
+      digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
     case 'left':
-      digitalWrite(lM, LOW);
+      digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
     case 'right':
-      digitalWrite(lM, HIGH);
+      digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
     case 'park':
-      digitalWrite(lM, LOW);
+      digitalWrite(lM1, LOW);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, LOW);
