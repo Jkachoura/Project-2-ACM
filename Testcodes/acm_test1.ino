@@ -40,21 +40,21 @@ void loop() {
   //If statements for detection black line
   //LINE FOUND ON BOTH SENSORS
   if(irLeftState == 1 && irRightState == 1){
-    drive('reverse');
+    drive('b');
     delay(1000);
-    drive('right');
+    drive('r');
   }
   //LINE FOUND ON THE LEFT SENSOR
   else if(irLeftState == 1 && irRightState == 0){
-    drive('right');
+    drive('r');
   }
   //LINE FOUND ON THE RIGHT SENSOR
   else if(irLeftState == 0 && irRightState == 1){
-    drive('left');
+    drive('l');
   }
   //NO LINES FOUND
   else{
-    drive('forward');
+    drive('f');
   }
   
   checkUltrasoneSensors();
@@ -62,31 +62,31 @@ void loop() {
 //Function to drive the motors to given direction
 void drive(char mode){
   switch (mode){
-    case 'forward':
+    case 'f':
       digitalWrite(lM, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
-    case 'reverse':
+    case 'b':
       digitalWrite(lM, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
-    case 'left':
+    case 'l':
       digitalWrite(lM, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
-    case 'right':
+    case 'r':
       digitalWrite(lM, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
-    case 'park':
+    case 'p':
       digitalWrite(lM, LOW);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
@@ -112,7 +112,7 @@ int frontUltrasone(){
 }
 
 int bottomUltrasone(){
-  int sensorHeight = ?;
+  int sensorHeight = 4;
   int distanceGround;
   
   // Clears the trigPin condition
@@ -127,21 +127,21 @@ int bottomUltrasone(){
   // Calculating the distance
   distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
   
-  distanceGround = sensorHeight - distance;
+  distanceGround = distance - sensorHeight;
   
   return distanceGround;
 }
 
 void checkUltrasoneSensors(){
   if(frontUltrasone() <= 15){
-    drive('left');
+    drive('l');
     delay(3000);
-    drive('forward');
+    drive('f');
   }
   else if(bottomUltrasone() > 5){
-  drive('park');
-  drive('reverse');
-  delay(3000);
-  driver('left');
+  drive('p');
+  drive('b');
+  delay(3400);
+  driver('l');
   }
 }
