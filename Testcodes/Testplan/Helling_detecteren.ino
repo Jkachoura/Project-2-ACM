@@ -29,37 +29,37 @@ void setup() {
 }
 
 void loop() {
-  drive('forward');
+  drive('f');
   checkSensor();
 }
 //Function to drive the motors to given direction
 void drive(char mode){
   switch (mode){
-    case 'forward':
+    case 'f':
       digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
-    case 'reverse':
+    case 'b':
       digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
-    case 'left':
+    case 'l':
       digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
-    case 'right':
+    case 'r':
       digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
-    case 'park':
+    case 'p':
       digitalWrite(lM1, LOW);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
@@ -91,9 +91,9 @@ int bottomUltrasone(){
 
 void checkSensor(){
   if(bottomUltrasone() > 5){
-    drive('park');
-    drive('reverse');
-    delay(3000);
-    drive('left');
+    drive('p');
+    drive('r');
+    delay(3400);
+    drive('f');
   }
 }
