@@ -31,51 +31,51 @@ void loop() {
   //If statements for detection black line
   //LINE FOUND ON BOTH SENSORS
   if(irLeftState == 1 && irRightState == 1){
-    drive('reverse');
+    drive('b');
     delay(1000);
-    drive('right');
+    drive('r');
   }
   //LINE FOUND ON THE LEFT SENSOR
   else if(irLeftState == 1 && irRightState == 0){
-    drive('right');
+    drive('r');
   }
   //LINE FOUND ON THE RIGHT SENSOR
   else if(irLeftState == 0 && irRightState == 1){
-    drive('left');
+    drive('l');
   }
   //NO LINES FOUND
   else{
-    drive('forward');
+    drive('f');
   }
 }
 //Function to drive the motors to given direction
 void drive(char mode){
   switch (mode){
-    case 'forward':
+    case 'f':
       digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
-    case 'reverse':
+    case 'b':
       digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
-    case 'left':
+    case 'l':
       digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
-    case 'right':
+    case 'r':
       digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
-    case 'park':
+    case 'p':
       digitalWrite(lM1, LOW);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
