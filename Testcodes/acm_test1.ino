@@ -44,7 +44,8 @@ void loop() {
   //Putting the value what IR sensor gives into the state variable of the ir sensors
   irLeftState = !digitalRead(irLeft);
   irRightState = !digitalRead(irRight);
-  
+  //Putting value waht Reed reads into state variable
+  reedState = digitalRead(reed);
   //If statements for detection black line
   //LINE FOUND ON BOTH SENSORS
   if(irLeftState == 1 && irRightState == 1){
@@ -63,14 +64,13 @@ void loop() {
   //NO LINES FOUND
   else{
     drive('f');
-    while(checkReed){
+    if(reedStae == 1){
       drive('p');
       delay(1000);
       drive('f');
     }
+    checkUltrasoneSensors();
   }
-  
-  checkUltrasoneSensors();
 }
 //Function to drive the motors to given direction
 void drive(char mode){
@@ -156,15 +156,5 @@ void checkUltrasoneSensors(){
   drive('b');
   delay(3400);
   drive('l');
-  }
-}
-boolean checkReed(){
-  //Putting value waht Reed reads into state variable
-  reedState = digitalRead(reed);
-  if(reedState == HIGH){
-    return true;
-  }
-  else{
-    return false;
   }
 }
