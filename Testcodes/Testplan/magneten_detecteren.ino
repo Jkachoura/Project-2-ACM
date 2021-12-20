@@ -20,8 +20,10 @@ void setup() {
 }
 
 void loop() {
+  //Putting value waht Reed reads into state variable
+  reedState = digitalRead(reed);
   drive('f');
-  while(checkReed()){
+  if (reedState == 1){
     drive('p');
     delay(1000);
     drive('f');
@@ -62,16 +64,5 @@ void drive(char mode){
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, LOW);
       break;
-  }
-}
-
-boolean checkReed(){
-  //Putting value waht Reed reads into state variable
-  reedState = digitalRead(reed);
-  if(reedState == HIGH){
-    return true;
-  }
-  else{
-    return false;
   }
 }
