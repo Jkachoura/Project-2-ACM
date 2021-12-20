@@ -4,17 +4,21 @@
 // Right Motor connections
 #define rM1 3
 #define rM2 4
-
+// Reed sensor
+#define reed 5
 //Ir sensors
-#define irLeft 9
-#define irRight 10
+#define irLeft 6
+#define irRight 7
 //Ultrasonic Sensor
-#define echoPin 11
-#define trigPin 12
+#define echoPin 8
+#define trigPin 9
+#define echoPin2 10
+#define trigPin2 11
 
 //States of IR sensor
 int irLeftState;
 int irRightState;
+int reedState; //state of reed sensor
 int distance;   // variable for the distance measurement
 long duration;  // variable for the traveltime of sound waves
 
@@ -24,12 +28,16 @@ void setup() {
   pinMode(lM2, OUTPUT);
   pinMode(rM1, OUTPUT);
   pinMode(rM2, OUTPUT);
+  //Set Reed sensor to input
+  pinMode(reed, INPUT);
   //Set the IR sensors to an input
   pinMode(irLeft, INPUT);
   pinMode(irRight, INPUT);
   //Set the Ultrasonic Sensor pins as output or input
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+  pinMode(trigPin2, OUTPUT);
+  pinMode(echoPin2, INPUT);
 }
 
 void loop() {
@@ -55,6 +63,11 @@ void loop() {
   //NO LINES FOUND
   else{
     drive('f');
+    while(checkReed){
+      drive('p');
+      delay(1000);
+      drive('f');
+    }
   }
   
   checkUltrasoneSensors();
@@ -63,31 +76,31 @@ void loop() {
 void drive(char mode){
   switch (mode){
     case 'f':
-      digitalWrite(lM, HIGH);
+      digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
     case 'b':
-      digitalWrite(lM, LOW);
+      digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
     case 'l':
-      digitalWrite(lM, LOW);
+      digitalWrite(lM1, LOW);
       digitalWrite(lM2, HIGH);
       digitalWrite(rM1, HIGH);
       digitalWrite(rM2, LOW);
       break;
     case 'r':
-      digitalWrite(lM, HIGH);
+      digitalWrite(lM1, HIGH);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, HIGH);
       break;
     case 'p':
-      digitalWrite(lM, LOW);
+      digitalWrite(lM1, LOW);
       digitalWrite(lM2, LOW);
       digitalWrite(rM1, LOW);
       digitalWrite(rM2, LOW);
@@ -116,14 +129,14 @@ int bottomUltrasone(){
   int distanceGround;
   
   // Clears the trigPin condition
-  digitalWrite(trigPin, LOW);
+  digitalWrite(trigPin2, LOW);
   delayMicroseconds(2);
   // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(trigPin2, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  digitalWrite(trigPin2, LOW);
   // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPin, HIGH);
+  duration = pulseIn(echoPin2, HIGH);
   // Calculating the distance
   distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
   
@@ -142,6 +155,16 @@ void checkUltrasoneSensors(){
   drive('p');
   drive('b');
   delay(3400);
-  driver('l');
+  drive('l');
+  }
+}
+boolean checkReed(){
+  //Putting value waht Reed reads into state variable
+  reedState = digitalRead(reed);
+  if(reedState == HIGH){
+    return true;
+  }
+  else{
+    return false;
   }
 }
