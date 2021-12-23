@@ -4,16 +4,15 @@
 // Right Motor connections
 #define rM1 2
 #define rM2 15
-// Reed sensor
-#define reed 5
 //Ir sensors
-#define irLeft 6
-#define irRight 7
+#define irLeft 9
+#define irRight 10
 //Ultrasonic Sensor
-#define echoPin 8
-#define trigPin 9
-#define echoPin2 10
-#define trigPin2 11
+#define echoPin 17
+#define trigPin 16
+//Ultrasonic Sensor
+#define echoPin2 4
+#define trigPin2 0
 
 //States of IR sensor
 int irLeftState;
@@ -21,6 +20,8 @@ int irRightState;
 int reedState; //state of reed sensor
 int distance;   // variable for the distance measurement
 long duration;  // variable for the traveltime of sound waves
+int distance2;
+long duration2;
 
 void setup() {
   //Set all the motor control pins to outputs
@@ -136,11 +137,11 @@ int bottomUltrasone(){
   delayMicroseconds(10);
   digitalWrite(trigPin2, LOW);
   // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPin2, HIGH);
+  duration2 = pulseIn(echoPin2, HIGH);
   // Calculating the distance
-  distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
+  distance2 = duration2 * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
   
-  distanceGround = distance - sensorHeight;
+  distanceGround = distance2 - sensorHeight;
   
   return distanceGround;
 }
