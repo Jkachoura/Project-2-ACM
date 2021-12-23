@@ -1,9 +1,9 @@
 // Left Motor connections
-#define lM1 1
-#define lM2 2
+#define lM1 12
+#define lM2 13
 // Right Motor connections
-#define rM1 3
-#define rM2 4
+#define rM1 2
+#define rM2 15
 //Ir sensors
 #define irLeft 9
 #define irRight 10
