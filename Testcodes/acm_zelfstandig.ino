@@ -43,6 +43,8 @@ void loop() {
   irLeftState = digitalRead(irLeft);
   irRightState = digitalRead(irRight);
 
+  drive('f');
+  
   checkSensor();
   
   //If statements for detection black line
@@ -51,12 +53,12 @@ void loop() {
     drive('b');
     delay(1000);
     drive('r');
-    delay(500);
   }
   //LINE FOUND ON THE LEFT SENSOR
   else if(irLeftState == 1 && irRightState == 0){
     drive('r');
     delay(500);
+    drive('f');
   }
   //LINE FOUND ON THE RIGHT SENSOR
   else if(irLeftState == 0 && irRightState == 1){
@@ -64,10 +66,7 @@ void loop() {
     delay(500);
     drive('f');
   }
-  //NO LINES FOUND
-  else{
-    drive('f');
-  }
+  drive('f');
 }
 //Function to drive the motors to given direction
 void drive(char mode){
