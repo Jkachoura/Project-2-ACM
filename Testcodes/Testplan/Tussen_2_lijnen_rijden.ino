@@ -25,8 +25,8 @@ void setup() {
 
 void loop() {
   //Putting the value what IR sensor gives into the state variable of the ir sensors
-  irLeftState = !digitalRead(irLeft);
-  irRightState = !digitalRead(irRight);
+  irLeftState = digitalRead(irLeft);
+  irRightState = digitalRead(irRight);
   
   //If statements for detection black line
   //LINE FOUND ON BOTH SENSORS
