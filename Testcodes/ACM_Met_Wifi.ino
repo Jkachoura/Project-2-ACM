@@ -6,15 +6,15 @@
 #define rM1 2
 #define rM2 15
 // Reed sensor
-#define reed 5
+#define reed ?
 //Ir sensors
-#define irLeft 6
-#define irRight 7
+#define irLeft 18
+#define irRight 5
 //Ultrasonic Sensor
-#define echoPin 8
-#define trigPin 9
-#define echoPin2 10
-#define trigPin2 11
+#define echoPin 17
+#define trigPin 16
+#define echoPin2 4
+#define trigPin2 0
 
 //States of IR sensor
 int irLeftState;
