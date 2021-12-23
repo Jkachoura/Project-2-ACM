@@ -5,11 +5,11 @@
 #define rM1 2
 #define rM2 15
 //Ir sensors
-#define irLeft 9
-#define irRight 10
+#define irLeft 18
+#define irRight 5
 //Ultrasonic Sensor
-#define echoPin 11
-#define trigPin 12
+#define echoPin 17
+#define trigPin 16
 
 int distance;     // variable for the distance measurement
 long duration;    // variable for the traveltime of sound waves
