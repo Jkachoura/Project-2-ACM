@@ -5,8 +5,8 @@
 #define rM1 2
 #define rM2 15
 //Ultrasonic Sensor
-#define echoPin 0
-#define trigPin 4
+#define echoPin 4
+#define trigPin 0
 
 int distance;     // variable for the distance measurement
 long duration;    // variable for the traveltime of sound waves
