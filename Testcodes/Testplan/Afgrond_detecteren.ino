@@ -4,12 +4,9 @@
 // Right Motor connections
 #define rM1 2
 #define rM2 15
-//Ir sensors
-#define irLeft 9
-#define irRight 10
 //Ultrasonic Sensor
-#define echoPin 11
-#define trigPin 12
+#define echoPin 0
+#define trigPin 4
 
 int distance;     // variable for the distance measurement
 long duration;    // variable for the traveltime of sound waves
