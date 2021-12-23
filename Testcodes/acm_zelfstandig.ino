@@ -2,11 +2,13 @@
 #define lM1 12
 #define lM2 13
 // Right Motor connections
-#define rM1 2
+#define rM1 25
 #define rM2 15
 //Ir sensors
 #define irLeft 18
 #define irRight 5
+// reed sensor
+#define reed 2
 //Ultrasonic Sensor
 #define echoPin 17
 #define trigPin 16
@@ -47,6 +49,11 @@ void loop() {
   
   checkSensor();
   
+  while(checkReed){
+    drive('p');
+  }
+   
+  
   //If statements for detection black line
   //LINE FOUND ON BOTH SENSORS
   if(irLeftState == 1 && irRightState == 1){
@@ -57,13 +64,13 @@ void loop() {
   //LINE FOUND ON THE LEFT SENSOR
   else if(irLeftState == 1 && irRightState == 0){
     drive('r');
-    delay(500);
+    delay(1000);
     drive('f');
   }
   //LINE FOUND ON THE RIGHT SENSOR
   else if(irLeftState == 0 && irRightState == 1){
     drive('l');
-    delay(500);
+    delay(1000);
     drive('f');
   }
   drive('f');
@@ -152,5 +159,13 @@ void checkSensor(){
     drive('r');
     delay(3400);
     drive('f');
+  }
+}
+//function to check the reed sensor
+int checkReed() {                               
+  if(digitalRead(reed) == HIGH){
+     return 1;
+  }else{
+    return 0;
   }
 }
