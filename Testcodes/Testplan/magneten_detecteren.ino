@@ -2,10 +2,10 @@
 #define lM1 12
 #define lM2 13
 // Right Motor connections
-#define rM1 2
+#define rM1 25
 #define rM2 15
 // Reed sensor
-#define reed 5
+#define reed 2
 
 int reedState; //state of reed sensor
 
