@@ -17,9 +17,6 @@ void setup() {
   pinMode(lM2, OUTPUT);
   pinMode(rM1, OUTPUT);
   pinMode(rM2, OUTPUT);
-  //Set the IR sensors to an input
-  pinMode(irLeft, INPUT);
-  pinMode(irRight, INPUT);
   //Set the Ultrasonic Sensor pins as output or input
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
