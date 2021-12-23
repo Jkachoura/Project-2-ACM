@@ -5,8 +5,8 @@
 #define rM1 2
 #define rM2 15
 //Ir sensors
-#define irLeft 9
-#define irRight 10
+#define irLeft 18
+#define irRight 5
 //Ultrasonic Sensor
 #define echoPin 17
 #define trigPin 16
@@ -17,9 +17,8 @@
 //States of IR sensor
 int irLeftState;
 int irRightState;
-int reedState; //state of reed sensor
-int distance;   // variable for the distance measurement
-long duration;  // variable for the traveltime of sound waves
+int distance;
+long duration;
 int distance2;
 long duration2;
 
@@ -29,8 +28,6 @@ void setup() {
   pinMode(lM2, OUTPUT);
   pinMode(rM1, OUTPUT);
   pinMode(rM2, OUTPUT);
-  //Set Reed sensor to input
-  pinMode(reed, INPUT);
   //Set the IR sensors to an input
   pinMode(irLeft, INPUT);
   pinMode(irRight, INPUT);
@@ -43,34 +40,33 @@ void setup() {
 
 void loop() {
   //Putting the value what IR sensor gives into the state variable of the ir sensors
-  irLeftState = !digitalRead(irLeft);
-  irRightState = !digitalRead(irRight);
-  //Putting value waht Reed reads into state variable
-  reedState = digitalRead(reed);
+  irLeftState = digitalRead(irLeft);
+  irRightState = digitalRead(irRight);
+
+  checkSensor();
+  
   //If statements for detection black line
   //LINE FOUND ON BOTH SENSORS
   if(irLeftState == 1 && irRightState == 1){
     drive('b');
     delay(1000);
     drive('r');
+    delay(500);
   }
   //LINE FOUND ON THE LEFT SENSOR
   else if(irLeftState == 1 && irRightState == 0){
     drive('r');
+    delay(500);
   }
   //LINE FOUND ON THE RIGHT SENSOR
   else if(irLeftState == 0 && irRightState == 1){
     drive('l');
+    delay(500);
+    drive('f');
   }
   //NO LINES FOUND
   else{
     drive('f');
-    if(reedStae == 1){
-      drive('p');
-      delay(1000);
-      drive('f');
-    }
-    checkUltrasoneSensors();
   }
 }
 //Function to drive the motors to given direction
@@ -146,16 +142,16 @@ int bottomUltrasone(){
   return distanceGround;
 }
 
-void checkUltrasoneSensors(){
-  if(frontUltrasone() <= 15){
+void checkSensor(){
+    if(frontUltrasone() <= 15){
     drive('l');
-    delay(3000);
+    delay(1000);
     drive('f');
   }
-  else if(bottomUltrasone() > 5){
-  drive('p');
-  drive('b');
-  delay(3400);
-  drive('l');
+    if(bottomUltrasone() > 5){
+    drive('p');
+    drive('r');
+    delay(3400);
+    drive('f');
   }
 }
