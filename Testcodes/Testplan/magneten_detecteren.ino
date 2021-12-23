@@ -20,13 +20,9 @@ void setup() {
 }
 
 void loop() {
-  //Putting value waht Reed reads into state variable
-  reedState = digitalRead(reed);
   drive('f');
-  if (reedState == 1){
+  while(checkReed){
     drive('p');
-    delay(1000);
-    drive('f');
   }
   
 }
@@ -66,3 +62,11 @@ void drive(char mode){
       break;
   }
 }
+int checkReed() {                               //function to check the reed sensor
+  if(digitalRead(reed) == HIGH){
+     return 1;
+  }else{
+    return 0;
+  }
+}
+
