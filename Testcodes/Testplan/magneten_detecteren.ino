@@ -21,7 +21,9 @@ void setup() {
 
 void loop() {
   drive('f');
-  while(checkReed){
+  while(!digitalRead(reed){
+    drive('b');
+    delay(500);
     drive('p');
   }
   
@@ -62,11 +64,3 @@ void drive(char mode){
       break;
   }
 }
-int checkReed() {                               //function to check the reed sensor
-  if(digitalRead(reed) == HIGH){
-     return 1;
-  }else{
-    return 0;
-  }
-}
-
