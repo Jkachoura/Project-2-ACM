@@ -33,6 +33,8 @@ void setup() {
   pinMode(rM1, OUTPUT);
   pinMode(rM2, OUTPUT);
   
+  Serial.begin(115200);
+  
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
   Serial.println(ssid);
