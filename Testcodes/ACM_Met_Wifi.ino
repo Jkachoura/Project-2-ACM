@@ -111,13 +111,14 @@ void loop(){
       //Putting the value what IR sensor gives into the state variable of the ir sensors
       irLeftState = digitalRead(irLeft);
       irRightState = digitalRead(irRight);
-    
-      drive('f');
       
       checkSensor();
       
       while(checkReed){
+        drive('b');
+        delay(100);
         drive('p');
+        delay(5000);
       }
        
       //If statements for detection black line
@@ -139,8 +140,8 @@ void loop(){
         delay(1000);
         drive('f');
       }
-      drive('f');
-      }
+      else{
+        drive('f');
 }
 
 void wifiLoop () {
@@ -366,7 +367,7 @@ void checkSensor(){
 
 //function to check the reed sensor
 int checkReed() {                               
-  if(digitalRead(reed) == HIGH){
+  if(digitalRead(reed) == LOW){
      return 1;
   }else{
     return 0;
