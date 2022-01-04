@@ -54,28 +54,29 @@ void setup() {
 void loop(){
   wifiLoop ();
   
-  // ======== Manual mode 
+  //Manual mode 
   if (manual) {
     if (forward){
-      drive ('f');
+      Serial.println("Vooruit in if statement");
+      drive('f');
     }
     else if (backward) {
-      drive ('b');
+      drive('b');
     }
     else if (turnRight) {
-      drive ('r');
+      drive('r');
     }
     else if (turnLeft) {
-      drive ('l');
+      drive('l');
     }
     else {
       drive('p');
     }
   }
 
-  // ======== Autonomous mode
+  //Autonomous mode
   else if (autonomous){
-    drive('p');
+    drive('f');
   }
 
 }
@@ -104,8 +105,6 @@ void wifiLoop () {
             client.println("Content-type:text/html");
             client.println("Connection: close");
             client.println();
-            
-
 
             // Toggles the booleans values
             // Button for autonomous/manual mode
@@ -126,20 +125,14 @@ void wifiLoop () {
 
             // Button for forward
             else if (header.indexOf("GET /forward/on") >= 0) {
-              forward= false;
-            } 
-            else if (header.indexOf("GET /forward/off") >= 0) {
               forward = true;
               backward = false;
               turnLeft = false;
               turnRight = false;
             }
 
-            // Button for backward
+            // Button for backward 
             else if (header.indexOf("GET /backward/on") >= 0) {
-              backward = false;
-            } 
-            else if (header.indexOf("GET /backward/off") >= 0) {
               backward = true;
               forward = false;
               turnLeft = false;
@@ -148,9 +141,6 @@ void wifiLoop () {
 
             // Button for turning right
             else if (header.indexOf("GET /turn_right/on") >= 0) {
-              turnRight = false;
-            } 
-            else if (header.indexOf("GET /turn_right/off") >= 0) {
               turnRight = true;
               backward = false;
               forward = false;
@@ -159,10 +149,15 @@ void wifiLoop () {
 
             // Button for turning left
             else if (header.indexOf("GET /turn_left/on") >= 0) {
-              turnLeft = false;
-            } 
-            else if (header.indexOf("GET /turn_left/off") >= 0) {
               turnLeft = true;
+              forward = false;
+              turnRight = false;
+              backward = false;
+            }
+
+            // Button for stopping
+            else if (header.indexOf("GET /stop/on") >= 0) {
+              turnLeft = false;
               forward = false;
               turnRight = false;
               backward = false;
@@ -195,10 +190,11 @@ void wifiLoop () {
               client.println ("<p> Manual control buttons </p>");
 
               // Forward, backward, right left hold buttons
-              client.println("<p><button class=\"button\" onmousedown=\"toggle('forward/off')\" ontouchstart=\"toggle('forward/off')\" onmouseup=\"toggle('forward/on')\" ontouchend=\"toggle('forward/on')\">Forward</button></p>");
-              client.println("<p><button class=\"button\" onmousedown=\"toggle('backward/off')\" ontouchstart=\"toggle('backward/off')\" onmouseup=\"toggle('backward/on')\" ontouchend=\"toggle('backward/on')\">Backward</button></p>");
-              client.println("<p><button class=\"button\" onmousedown=\"toggle('turn_right/off')\" ontouchstart=\"toggle('turn_right/off')\" onmouseup=\"toggle('turn_right/on')\" ontouchend=\"toggle('turn_right/on')\">Turn right</button></p>");
-              client.println("<p><button class=\"button\" onmousedown=\"toggle('turn_left/off')\" ontouchstart=\"toggle('turn_left/off')\" onmouseup=\"toggle('turn_left/on')\" ontouchend=\"toggle('turn_left/on')\">Turn left</button></p>");
+              client.println("<p><a href=\"/forward/on\"><button class=\"button\">Forward</button></a></p>");
+              client.println("<p><a href=\"/backward/on\"><button class=\"button\">Backward</button></a></p>");
+              client.println("<p><a href=\"/turn_left/on\"><button class=\"button\">Turn Left</button></a></p>");
+              client.println("<p><a href=\"/turn_right/on\"><button class=\"button\">Turn Right</button></a></p>");
+              client.println("<p><a href=\"/stop/on\"><button class=\"button\">Stop</button></a></p>");
             }
             client.println("</body></html>");
             // The HTTP response ends with another blank line
