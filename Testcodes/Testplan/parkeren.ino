@@ -189,7 +189,7 @@ void wifiLoop () {
             if (manual) {   
               client.println ("<p> Manual control buttons </p>");
 
-              // Forward, backward, right left hold buttons
+              // Buttons to toggle forward, backward, left, right or stop
               client.println("<p><a href=\"/forward/on\"><button class=\"button\">Forward</button></a></p>");
               client.println("<p><a href=\"/backward/on\"><button class=\"button\">Backward</button></a></p>");
               client.println("<p><a href=\"/turn_left/on\"><button class=\"button\">Turn Left</button></a></p>");
