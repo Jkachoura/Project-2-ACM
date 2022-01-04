@@ -112,6 +112,8 @@ void loop(){
       irLeftState = digitalRead(irLeft);
       irRightState = digitalRead(irRight);
       
+      drive('f');
+      
       checkSensor();
       
       while(checkReed){
@@ -132,16 +134,15 @@ void loop(){
       else if(irLeftState == 1 && irRightState == 0){
         drive('r');
         delay(1000);
-        drive('f');
       }
       //LINE FOUND ON THE RIGHT SENSOR
       else if(irLeftState == 0 && irRightState == 1){
         drive('l');
         delay(1000);
-        drive('f');
       }
       else{
         drive('f');
+      }
 }
 
 void wifiLoop () {
