@@ -57,7 +57,6 @@ void loop(){
   //Manual mode 
   if (manual) {
     if (forward){
-      Serial.println("Vooruit in if statement");
       drive('f');
     }
     else if (backward) {
