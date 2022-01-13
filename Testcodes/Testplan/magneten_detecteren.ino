@@ -21,7 +21,7 @@ void setup() {
 
 void loop() {
   drive('f');
-  while(!digitalRead(reed){
+  while(!digitalRead(reed)){
     drive('b');
     delay(500);
     drive('p');
