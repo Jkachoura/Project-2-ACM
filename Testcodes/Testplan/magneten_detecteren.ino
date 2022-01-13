@@ -7,7 +7,7 @@
 // Reed sensor
 #define reed 19
 
-int reedState; //state of reed sensor
+int reed_status;
 
 void setup() {
   //Set all the motor control pins to outputs
@@ -20,13 +20,14 @@ void setup() {
 }
 
 void loop() {
-  drive('f');
-  while(!digitalRead(reed)){
-    drive('b');
-    delay(500);
+  reed_status = digitalRead(reed);
+  if(reed_status == 1){
+    drive('f');
+    
+  }
+  else{
     drive('p');
   }
-  
 }
 
 //Function to drive the motors to given direction
