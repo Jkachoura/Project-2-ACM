@@ -85,8 +85,7 @@ void setup() {
 }
 
 void loop(){
-  wifiLoop ();
-  
+  wifiLoop();
   //Manual mode 
   if (manual) {
     if (forward){
@@ -108,44 +107,14 @@ void loop(){
 
   //Autonomous mode
   else if (autonomous){
-      //Putting the value what IR sensor gives into the state variable of the ir sensors
-      irLeftState = digitalRead(irLeft);
-      irRightState = digitalRead(irRight);
-      
-      drive('f');
-      
-      checkSensor();
-      
-      while(checkReed){
-        drive('b');
-        delay(100);
-        drive('p');
-        delay(5000);
-      }
-       
-      //If statements for detection black line
-      //LINE FOUND ON BOTH SENSORS
-      if(irLeftState == 1 && irRightState == 1){
-        drive('b');
-        delay(1000);
-        drive('r');
-      }
-      //LINE FOUND ON THE LEFT SENSOR
-      else if(irLeftState == 1 && irRightState == 0){
-        drive('r');
-        delay(1000);
-      }
-      //LINE FOUND ON THE RIGHT SENSOR
-      else if(irLeftState == 0 && irRightState == 1){
-        drive('l');
-        delay(1000);
-      }
-      else{
-        drive('f');
-      }
+    drive('f');
+    
+    checkSensor();
+    checkIRs();
+  }
 }
 
-void wifiLoop () {
+void wifiLoop() {
   WiFiClient client = server.available();   // Listen for incoming clients
 
   if (client) {                             // If a new client connects,
@@ -353,24 +322,50 @@ int bottomUltrasone(){
 }
 
 void checkSensor(){
-    if(frontUltrasone() <= 15){
-    drive('l');
+    if(frontUltrasone() <= 17){
+    drive('b');
     delay(1000);
-    drive('f');
+    drive('l');
+    delay(333);
   }
     if(bottomUltrasone() > 5){
     drive('p');
+    drive('b');
+    delay(1000);
     drive('r');
-    delay(3400);
-    drive('f');
+    delay(2000);
   }
 }
 
-//function to check the reed sensor
-int checkReed() {                               
-  if(digitalRead(reed) == LOW){
-     return 1;
-  }else{
-    return 0;
-  }
+void checkIRs(){
+    //Putting the value what IR sensor gives into the state variable of the ir sensors
+    irLeftState = digitalRead(irLeft);
+    irRightState = digitalRead(irRight);
+    //If statements for detection black line
+    //LINE FOUND ON BOTH SENSORS
+    
+    if(irLeftState == 1 && irRightState == 1){
+      drive('b');
+      delay(1000);
+      drive('r');
+    }
+    //LINE FOUND ON THE LEFT SENSOR
+    else if(irLeftState == 1 && irRightState == 0){
+      drive('r');
+      delay(200);
+    }
+    //LINE FOUND ON THE RIGHT SENSOR
+    else if(irLeftState == 0 && irRightState == 1){
+      drive('l');
+      delay(200);
+    }
 }
+
+//function to check the reed sensor
+//int checkReed() {                               
+//  if(digitalRead(reed) == LOW){
+//     return 1;
+//  }else{
+//    return 0;
+//  }
+//}
