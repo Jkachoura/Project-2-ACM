@@ -5,7 +5,7 @@
 #define rM1 2
 #define rM2 15
 // Reed sensor
-#define reed 19
+#define reed 36
 
 int reed_status;
 
