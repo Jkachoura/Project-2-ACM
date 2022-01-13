@@ -9,7 +9,7 @@
 #define irLeft 18
 #define irRight 5
 // reed sensor
-#define reed 2
+#define reed 36
 //Ultrasonic Sensor
 #define echoPin 17
 #define trigPin 16
@@ -111,6 +111,9 @@ void loop(){
     
     checkSensor();
     checkIRs();
+    while(checkReed()){
+      drive('p');
+    }
   }
 }
 
@@ -361,11 +364,11 @@ void checkIRs(){
     }
 }
 
-//function to check the reed sensor
-//int checkReed() {                               
-//  if(digitalRead(reed) == LOW){
-//     return 1;
-//  }else{
-//    return 0;
-//  }
-//}
+function to check the reed sensor
+int checkReed() {                               
+  if(digitalRead(reed) == LOW){
+     return 1;
+  }else{
+    return 0;
+  }
+}
