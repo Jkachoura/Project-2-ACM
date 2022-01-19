@@ -35,25 +35,9 @@ void checkIRs(){
   //Putting the value what IR sensor gives into the state variable of the ir sensors
   irLeftState = digitalRead(irLeft);
   irRightState = digitalRead(irRight);
-  
-  //LINE FOUND ON THE LEFT SENSOR
-  if(irLeftState == 1 && irRightState == 0){
-    acmIsLeft = true;
-    acmIsRight = false;
-    acmIsCentered = false;
-    drive('r');
-    delay(200);
-  }
-  //LINE FOUND ON THE RIGHT SENSOR
-  else if(irLeftState == 0 && irRightState == 1){
-    acmIsLeft = false;
-    acmIsRight = true;
-    acmIsCentered = false;
-    drive('l');
-    delay(200);
-  }
+ 
   //LINE FOUND ON BOTH SENSORS AND ACM WAS ON LEFT SIDE
-  else if((irLeftState == 1 && irRightState == 1) && acmIsLeft == true){
+  if((irLeftState == 1 && irRightState == 1) && acmIsLeft == true){
     acmIsLeft = false;
     acmIsRight = false;
     acmIsCentered = false;
@@ -91,6 +75,22 @@ void checkIRs(){
     delay(200);
     drive('l');
     delay(1750);
+  }
+  //LINE FOUND ON THE LEFT SENSOR
+  else if(irLeftState == 1 && irRightState == 0){
+    acmIsLeft = true;
+    acmIsRight = false;
+    acmIsCentered = false;
+    drive('r');
+    delay(200);
+  }
+  //LINE FOUND ON THE RIGHT SENSOR
+  else if(irLeftState == 0 && irRightState == 1){
+    acmIsLeft = false;
+    acmIsRight = true;
+    acmIsCentered = false;
+    drive('l');
+    delay(200);
   }
   //NO LINES FOUND
   else{
