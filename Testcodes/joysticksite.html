@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<style>
+		.button {background-color: white; border: none; color: white; padding: 30px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 8px 4px; cursor: pointer;border-radius: 50%;}
+		.void {background-color: lightblue;}
+		.arrow {border: solid black; border-width: 0 4px 4px 0; display: inline-block; padding: 4px;}
+		.arrow2 {border: solid lightblue; border-width: 0 4px 4px 0; display: inline-block; padding: 4px;}
+		.arrow3 {border: solid white; border-width: 0 4px 4px 0; display: inline-block; padding: 4px;}
+		.right {transform: rotate(-45deg);}
+		.left {transform: rotate(135deg);}
+		.up {transform: rotate(-135deg);}
+		.down {transform: rotate(45deg);}
+		body {background-color: lightblue;}
+		</style>
+	</head>
+	<body>
+	<p><a><button class="button void"><i class="arrow arrow2"></i></button></a><a href=\"/forward/on\"><button class="button button"><i class="arrow up"></i></button></a></p>
+	<p><a href=\"/turn_left/on\"><button class="button button"><i class="arrow left"></i></button></a><a href=\"/stop/on\"><button class="button "><i class="arrow arrow3"></i></button></a><a href=\"/turn_right/on\"><button class="button button"><i class="arrow right"></i></button></a></p>
+	<p><a><button class="button void"><i class="arrow arrow2"></i></button></a><a href=\"/backward/on\"><button class="button button"><i class="arrow down"></i></button></a></p>
+	</body>
+</html>
