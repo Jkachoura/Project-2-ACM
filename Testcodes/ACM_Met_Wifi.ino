@@ -26,6 +26,8 @@ long duration;
 //Bottom Ultrasone Sensor
 int distance2;
 long duration2;
+//State of Reed sensor
+int reedState;
 
 // Replace with your network credentials
 const char* ssid     = "Tesla IoT";
@@ -67,6 +69,7 @@ void setup() {
   pinMode(echoPin, INPUT);
   pinMode(trigPin2, OUTPUT);
   pinMode(echoPin2, INPUT);
+  pinMode(reed, INPUT);
   
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
@@ -107,12 +110,15 @@ void loop(){
 
   //Autonomous mode
   else if (autonomous){
+    reedState = digitalRead(reed);
     drive('f');
-    
     checkSensor();
     checkIRs();
-    while(checkReed()){
+    
+    reedState = digitalRead(reed);
+    if(reedState == 0){
       drive('p');
+      delay(4000);
     }
   }
 }
@@ -304,7 +310,7 @@ int frontUltrasone(){
 }
 
 int bottomUltrasone(){
-  int sensorHeight = 4;
+  int sensorHeight = 5;
   int distanceGround;
   
   //Clears the trigPin condition
@@ -325,14 +331,13 @@ int bottomUltrasone(){
 }
 
 void checkSensor(){
-    if(frontUltrasone() <= 17){
+    if(frontUltrasone() <= 10){
     drive('b');
     delay(1000);
     drive('l');
     delay(333);
   }
     if(bottomUltrasone() > 5){
-    drive('p');
     drive('b');
     delay(1000);
     drive('r');
@@ -350,7 +355,8 @@ void checkIRs(){
     if(irLeftState == 1 && irRightState == 1){
       drive('b');
       delay(1000);
-      drive('r');
+      drive('r')
+      delay(200);
     }
     //LINE FOUND ON THE LEFT SENSOR
     else if(irLeftState == 1 && irRightState == 0){
@@ -362,13 +368,4 @@ void checkIRs(){
       drive('l');
       delay(200);
     }
-}
-
-function to check the reed sensor
-int checkReed() {                               
-  if(digitalRead(reed) == LOW){
-     return 1;
-  }else{
-    return 0;
-  }
 }
