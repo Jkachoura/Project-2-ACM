@@ -223,7 +223,7 @@ void wifiLoop() {
             client.println(".down {transform: rotate(45deg);}");
             
             //Web Page Heading
-            client.println("<body style=\"background-color: #00ACFF;\"><h1>Groep 10</h1>");
+            client.println("<body style=\"background-color: lightblue;\"><h1>Groep 10</h1>");
 
             //Display current state for the mode
             client.println("<p>Current control mode </p>");     
