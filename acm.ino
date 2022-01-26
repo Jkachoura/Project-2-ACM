@@ -209,19 +209,27 @@ void wifiLoop() {
             client.println("<link rel=\"icon\" href=\"data:,\">");
             //CSS to style the buttons 
             client.println("<style>html { font-family: Roboto; display: inline-block; margin: 0px auto; text-align: center; -webkit-user-select: none;}");
-            client.println(".button { background-color: #E3BF00; border: none; color: white; padding: 16px 40px;");
+            client.println(".button2 { background-color: #E3BF00; border: none; color: white; padding: 16px 40px;");
             client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
-            client.println(".button2 {background-color: #CECBBB;}</style></head>");
+            client.println(".button {background-color: white; border: none; color: white; padding: 30px; text-align: center;");
+            client.println("text-decoration: none; display: inline-block; font-size: 16px; margin: 8px 4px; cursor: pointer;border-radius: 50%;}");
+            client.println(".arrow {border: solid black; border-width: 0 4px 4px 0; display: inline-block; padding: 4px;}");
+            client.println(".arrow2 {border: solid white; border-width: 0 4px 4px 0; display: inline-block; padding: 4px;}");
+            client.println(".arrowvoid {border: solid lightblue; border-width: 0 4px 4px 0; display: inline-block; padding: 4px;}");
+            client.println(".right {transform: rotate(-45deg);}");
+            client.println(".left {transform: rotate(135deg);}");
+            client.println(".up {transform: rotate(-135deg);}");
+            client.println(".down {transform: rotate(45deg);}</style></head>");
             
             //Web Page Heading
-            client.println("<body style=\"background-color: #00ACFF;\"><h1>Groep 10</h1>");
+            client.println("<body style=\"background-color: lightblue;\"><h1>Groep 10</h1>");
 
             //Display current state for the mode
             client.println("<p>Current control mode </p>");     
             if (autonomous) {
-              client.println("<p><a href=\"/mode/manual\"><button class=\"button\">Autonomous</button></a></p>");
+              client.println("<p><a href=\"/mode/manual\"><button class=\"button2\">Autonomous</button></a></p>");
             } else {
-              client.println("<p><a href=\"/mode/autonomous\"><button class=\"button\">Manual</button></a></p>");
+              client.println("<p><a href=\"/mode/autonomous\"><button class=\"button2\">Manual</button></a></p>");
             } 
 
             //Only show direction buttons when manual mode is on
@@ -229,11 +237,9 @@ void wifiLoop() {
               client.println ("<p> Manual control buttons </p>");
 
               //Buttons to toggle forward, backward, left, right or stop
-              client.println("<p><a href=\"/forward/on\"><button class=\"button\">Forward</button></a></p>");
-              client.println("<p><a href=\"/backward/on\"><button class=\"button\">Backward</button></a></p>");
-              client.println("<p><a href=\"/turn_left/on\"><button class=\"button\">Turn Left</button></a></p>");
-              client.println("<p><a href=\"/turn_right/on\"><button class=\"button\">Turn Right</button></a></p>");
-              client.println("<p><a href=\"/stop/on\"><button class=\"button\">Stop</button></a></p>");
+              client.println("<p><a href=\"/forward/on\"><button class=\"button button\"><i class=\"arrow up\"></i></button></a></p>");
+              client.println("<p><a href=\"/turn_left/on\"><button class=\"button button\"><i class=\"arrow left\"></i></button></a><a href=\"/stop/on\"><button class=\"button\"><i class=\"arrow arrow2\"></i></button></a><a href=\"/turn_right/on\"><button class=\"button button\"><i class=\"arrow right\"></i></button></a></p>");
+              client.println("<p><a href=\"/backward/on\"><button class=\"button button\"><i class=\"arrow down\"></i></button></a></p>");
             }
             client.println("</body></html>");
             //The HTTP response ends with another blank line
@@ -309,7 +315,7 @@ int frontUltrasone(){
 }
 
 int bottomUltrasone(){
-  int sensorHeight = 5;
+  int sensorHeight = 4;
   int distanceGround;
   
   //Clears the trigPin condition
@@ -363,7 +369,7 @@ void checkIRs(){
       drive('b');
       delay(400);
       drive('l');
-      delay(500);
+      delay(200);
       acmIsRight = false;
       acmIsLeft = true;
     }
@@ -371,7 +377,7 @@ void checkIRs(){
       drive('b');
       delay(400);
       drive('r');
-      delay(500);
+      delay(200);
       acmIsRight = false;
       acmIsLeft = true;
     }
@@ -381,7 +387,7 @@ void checkIRs(){
       drive('b');
       delay(400);
       drive('r');
-      delay(500);
+      delay(200);
       acmIsRight = true;
       acmIsLeft = false;
     }
@@ -389,7 +395,7 @@ void checkIRs(){
       drive('b');
       delay(400);
       drive('l');
-      delay(500);
+      delay(200);
       acmIsRight = true;
       acmIsLeft = false;
     }
