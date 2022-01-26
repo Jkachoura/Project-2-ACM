@@ -331,7 +331,7 @@ int bottomUltrasone(){
 }
 
 void checkSensor(){
-    if(frontUltrasone() <= 10){
+    if(frontUltrasone() <= 15){
     drive('b');
     delay(1000);
     drive('l');
