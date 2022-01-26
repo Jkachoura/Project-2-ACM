@@ -1,14 +1,14 @@
 // Left Motor connections
-#define lM1 12
-#define lM2 13
+#define lM1 2
+#define lM2 15
 // Right Motor connections
-#define rM1 25
-#define rM2 15
+#define rM1 12
+#define rM2 13
 //Ir sensors
 #define irLeft 18
 #define irRight 5
 // reed sensor
-#define reed 2
+#define reed 36
 //Ultrasonic Sensor
 #define echoPin 17
 #define trigPin 16
