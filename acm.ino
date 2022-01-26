@@ -330,7 +330,7 @@ int bottomUltrasone(){
 }
 
 void checkSensor(){
-  if(frontUltrasone() <= 10){
+  if(frontUltrasone() <= 15){
     if(acmIsRight){
       drive('b');
       delay(1000);
