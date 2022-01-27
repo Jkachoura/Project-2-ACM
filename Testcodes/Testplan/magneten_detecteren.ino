@@ -6,10 +6,16 @@
 #define rM2 13
 // Reed sensor
 #define reed 36
+//Ir sensors
+#define irLeft 18
+#define irRight 5
 
 int reed_status;
 boolean acmIsLeft = false;
 boolean acmIsRight = false;
+//States of IR sensor
+int irLeftState;
+int irRightState;
 
 void setup() {
   //Set all the motor control pins to outputs
@@ -19,6 +25,9 @@ void setup() {
   pinMode(rM2, OUTPUT);
   //Set Reed sensor to input
   pinMode(reed, INPUT);
+  //Set the IR sensors to an input
+  pinMode(irLeft, INPUT);
+  pinMode(irRight, INPUT);
 }
 
 void loop() {
