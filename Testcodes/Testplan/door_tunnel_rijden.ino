@@ -17,6 +17,9 @@ long duration;    // variable for the traveltime of sound waves
 //States of IR sensor
 int irLeftState;
 int irRightState;
+//Variable to see which IR last scanned the line
+boolean acmIsLeft = false;
+boolean acmIsRight = false;
 
 void setup() {
   //Set all the motor control pins to outputs
@@ -33,35 +36,30 @@ void setup() {
 }
 
 void loop() {
-  checkIR();
+  checkIRs();
   checkUS();
 }
 
-void checkIR(){
+void checkIRs(){
   //Putting the value what IR sensor gives into the state variable of the ir sensors
   irLeftState = digitalRead(irLeft);
   irRightState = digitalRead(irRight);
-  
-  //If statements for detection black line
-  //LINE FOUND ON BOTH SENSORS
-  if(irLeftState == 1 && irRightState == 1){
-    drive('b');
-    delay(1000);
+  if(irLeftState == 1){
     drive('r');
+    delay(200);
+    acmIsRight = false;
+    acmIsLeft = true;
   }
-  //LINE FOUND ON THE LEFT SENSOR
-  else if(irLeftState == 1 && irRightState == 0){
-    drive('r');
-  }
-  //LINE FOUND ON THE RIGHT SENSOR
-  else if(irLeftState == 0 && irRightState == 1){
+  if(irRightState == 1){
     drive('l');
+    delay(200);
+    acmIsRight = true;
+    acmIsLeft = false;
   }
-  //NO LINES FOUND
-  else{
-    drive('f');
-  }
+ 
+
 }
+
 
 int frontUltrasone(){
   // Clears the trigPin condition
