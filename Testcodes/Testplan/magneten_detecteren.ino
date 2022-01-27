@@ -8,6 +8,8 @@
 #define reed 36
 
 int reed_status;
+boolean acmIsLeft = false;
+boolean acmIsRight = false;
 
 void setup() {
   //Set all the motor control pins to outputs
@@ -20,6 +22,7 @@ void setup() {
 }
 
 void loop() {
+  checkIRs();
   reed_status = digitalRead(reed);
   if(reed_status == 1){
     drive('f');
@@ -27,6 +30,25 @@ void loop() {
   }
   else{
     drive('p');
+  }
+}
+
+void checkIRs(){
+  
+  //Putting the value what IR sensor gives into the state variable of the ir sensors
+  irLeftState = digitalRead(irLeft);
+  irRightState = digitalRead(irRight);
+  if(irLeftState == 1){
+    drive('r');
+    delay(200);
+    acmIsRight = false;
+    acmIsLeft = true;
+  }
+  if(irRightState == 1){
+    drive('l');
+    delay(200);
+    acmIsRight = true;
+    acmIsLeft = false;
   }
 }
 
