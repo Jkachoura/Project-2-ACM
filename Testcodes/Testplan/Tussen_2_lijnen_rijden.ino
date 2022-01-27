@@ -11,6 +11,8 @@
 //States of IR sensor
 int irLeftState;
 int irRightState;
+boolean acmIsRight = false;
+boolean acmIsLeft = false;
 
 void setup() {
   //Set all the motor control pins to outputs
@@ -27,25 +29,18 @@ void loop() {
   //Putting the value what IR sensor gives into the state variable of the ir sensors
   irLeftState = digitalRead(irLeft);
   irRightState = digitalRead(irRight);
-  
-  //If statements for detection black line
-  //LINE FOUND ON BOTH SENSORS
-  if(irLeftState == 1 && irRightState == 1){
-    drive('b');
-    delay(1000);
+ 
+  if(irLeftState == 1){
     drive('r');
+    delay(200);
+    acmIsRight = false;
+    acmIsLeft = true;
   }
-  //LINE FOUND ON THE LEFT SENSOR
-  else if(irLeftState == 1 && irRightState == 0){
-    drive('r');
-  }
-  //LINE FOUND ON THE RIGHT SENSOR
-  else if(irLeftState == 0 && irRightState == 1){
+  if(irRightState == 1){
     drive('l');
-  }
-  //NO LINES FOUND
-  else{
-    drive('f');
+    delay(200);
+    acmIsRight = true;
+    acmIsLeft = false;
   }
 }
 //Function to drive the motors to given direction
