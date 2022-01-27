@@ -360,45 +360,20 @@ void checkSensor(){
 }
 
 void checkIRs(){
-  //Putting the value what IR sensor gives into the state variable of the ir sensors
+   //Putting the value what IR sensor gives into the state variable of the ir sensors
   irLeftState = digitalRead(irLeft);
   irRightState = digitalRead(irRight);
-
-  if (irLeftState == 1){
-    if(acmIsRight){
-      drive('b');
-      delay(400);
-      drive('l');
-      delay(200);
-      acmIsRight = false;
-      acmIsLeft = true;
-    }
-    else{
-      drive('b');
-      delay(400);
-      drive('r');
-      delay(200);
-      acmIsRight = false;
-      acmIsLeft = true;
-    }
+  if(irLeftState == 1){
+    drive('r');
+    delay(200);
+    acmIsRight = false;
+    acmIsLeft = true;
   }
   if(irRightState == 1){
-    if(acmIsLeft){
-      drive('b');
-      delay(400);
-      drive('r');
-      delay(200);
-      acmIsRight = true;
-      acmIsLeft = false;
-    }
-    else{
-      drive('b');
-      delay(400);
-      drive('l');
-      delay(200);
-      acmIsRight = true;
-      acmIsLeft = false;
-    }
+    drive('l');
+    delay(200);
+    acmIsRight = true;
+    acmIsLeft = false;
   }
 }
 
