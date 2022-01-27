@@ -36,6 +36,7 @@ void setup() {
 }
 
 void loop() {
+  drive('f');
   checkIRs();
   checkUS();
 }
@@ -79,9 +80,18 @@ int frontUltrasone(){
 
 void checkUS(){
   if(frontUltrasone() <= 15){
-    drive('l');
-    delay(1000);
-    drive('f');
+    if(acmIsRight){
+      drive('b');
+      delay(1000);
+      drive('r');
+      delay(333);
+    }
+    else{
+      drive('b');
+      delay(1000);
+      drive('l');
+      delay(333);
+    }
   }
 }
 //Function to drive the motors to given direction
