@@ -7,6 +7,12 @@
 //Ultrasonic Sensor
 #define echoPin 4
 #define trigPin 0
+//Variable to see which IR last scanned the line
+boolean acmIsLeft = false;
+boolean acmIsRight = false;
+
+int irLeftState;
+int irRightState;
 
 int distance;     // variable for the distance measurement
 long duration;    // variable for the traveltime of sound waves
@@ -17,6 +23,9 @@ void setup() {
   pinMode(lM2, OUTPUT);
   pinMode(rM1, OUTPUT);
   pinMode(rM2, OUTPUT);
+  //ir sensor
+  pinMode(irRight, INPUT);
+  pinMode(irLeft, INPUT):
   //Set the Ultrasonic Sensor pins as output or input
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
@@ -24,6 +33,7 @@ void setup() {
 
 void loop() {
   drive('f');
+  checkIRs();
   checkSensor();
 }
 //Function to drive the motors to given direction
@@ -60,6 +70,27 @@ void drive(char mode){
       digitalWrite(rM2, LOW);
       break;
   }
+}
+
+void checkIRs(){
+  
+  //Putting the value what IR sensor gives into the state variable of the ir sensors
+  irLeftState = digitalRead(irLeft);
+  irRightState = digitalRead(irRight);
+  if(irLeftState == 1){
+    drive('r');
+    delay(200);
+    acmIsRight = false;
+    acmIsLeft = true;
+  }
+  if(irRightState == 1){
+    drive('l');
+    delay(200);
+    acmIsRight = true;
+    acmIsLeft = false;
+  }
+ 
+
 }
 
 int bottomUltrasone(){
