@@ -298,6 +298,7 @@ void drive(char mode) {
   }
 }
 
+//Function that returns the distance thats measured by the front ultrasone.
 int frontUltrasone(){
   //Clears the trigPin condition
   digitalWrite(trigPin, LOW);
@@ -314,6 +315,7 @@ int frontUltrasone(){
   return distance;
 }
 
+//Function that returns the distance thats measured by the bottom Ultrasone sensor
 int bottomUltrasone(){
   int sensorHeight = 4;
   int distanceGround;
@@ -335,8 +337,11 @@ int bottomUltrasone(){
   return distanceGround;
 }
 
+//Function that checks the Ultrasone sensors.
 void checkSensor(){
+  //If theres a distance measured smaller or equal than 15 do the following.
   if(frontUltrasone() <= 15){
+    //If the right ir-sensor is scanned, it means that there is a line to the right so stay at that side.
     if(acmIsRight){
       drive('b');
       delay(1000);
@@ -351,6 +356,7 @@ void checkSensor(){
     }
   }
   
+  //If the bottomUltrasone measuerd a distance more than 5 cm turn around.
   if(bottomUltrasone() > 5){
     drive('b');
     delay(1000);
@@ -359,16 +365,19 @@ void checkSensor(){
   }
 }
 
+//Function that checks the IR-sensors if theyre scanned do something
 void checkIRs(){
    //Putting the value what IR sensor gives into the state variable of the ir sensors
   irLeftState = digitalRead(irLeft);
   irRightState = digitalRead(irRight);
+  //The left IR sensor is scanned
   if(irLeftState == 1){
     drive('r');
     delay(200);
     acmIsRight = false;
     acmIsLeft = true;
   }
+  //The Right IR sensor is scanned.
   if(irRightState == 1){
     drive('l');
     delay(200);
@@ -377,8 +386,10 @@ void checkIRs(){
   }
 }
 
+//Function to check the Reed sensor if it scanned or not.
 void checkReed(){
   reedState = digitalRead(reed);
+  //The reed sensor is low so theres a magnet beneath it
   if(reedState == 0){
     drive('p');
     delay(4000);
